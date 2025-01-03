@@ -15,7 +15,7 @@
   }
 }
 
-.my-order-text {
+.my-orders-text {
   font-family: 'Roboto';
   font-weight: 500;
   font-size: 18px;
@@ -36,7 +36,7 @@
   text-align: center;
   background-color: #ff6347;
   padding: 4px 2px 2px;
-  color: #fff;
+  color: #ffff;
   font-family: 'Roboto';
   font-weight: 500;
   font-size: 14px;

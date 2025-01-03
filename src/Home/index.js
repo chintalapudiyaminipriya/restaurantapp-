@@ -13,7 +13,7 @@ const Home = () => {
   const [cartItems, setCartItems] = useState([])
 
   const addItemToCart = dish => {
-    const isAlreadyExists = cartItems.find(item.dishId === dish.dishId)
+    const isAlreadyExists = cartItems.find(item => item.dishId === dish.dishId)
     if (!isAlreadyExists) {
       const newDish = {...dish, quantity: 1}
       setCartItems(prev => [...prev, newDish])
@@ -63,7 +63,8 @@ const Home = () => {
     }))
 
   const fetchRestaurantApi = async () => {
-    const api = 'https://run.mocky.io/v3/77a7e71b-804a-4fbd-822c-3e365d3482cc'
+    const api =
+      'https://apis2.ccbp.in/restaurant-app/restaurant-menu-list-details'
     const apiResponse = await fetch(api)
     const data = await apiResponse.json()
     const updatedData = getUpdatedData(data[0].table_menu_list)
@@ -74,35 +75,35 @@ const Home = () => {
 
   useEffect(() => {
     fetchRestaurantApi()
-  
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const onUpdateActiveCategoryIdx = menuCategoryId => 
+  const onUpdateActiveCategoryIdx = menuCategoryId =>
     setActiveCategoryId(menuCategoryId)
 
-  const renderTabMenuList = () => 
+  const renderTabMenuList = () =>
     response.map(eachCategory => {
-      const onClickHandler = () => 
+      const onClickHandler = () =>
         onUpdateActiveCategoryIdx(eachCategory.menuCategoryId)
 
-        return (
-          <li 
-            className={`each-tab-item ${
-              eachCategory.menuCategoryId === activeCategoryId
-                ? 'active-tab-item'
-                : ''
-            }`}
-            key={eachCategory.menuCategoryId}
-            onClick={onClickHandler}
+      return (
+        <li
+          className={`each-tab-item ${
+            eachCategory.menuCategoryId === activeCategoryId
+              ? 'active-tab-item'
+              : ''
+          }`}
+          key={eachCategory.menuCategoryId}
+          onClick={onClickHandler}
+        >
+          <button
+            type="button"
+            className="mt-0 mb-0 ms-2 me-2 tab-category-button"
           >
-            <button 
-              type="button"
-              className="mt-0 mb-0 ms-2 me-2 tab-category-button"
-            >
-              {eachCategory.menuCategory}
-            </button>
-          </li>
-        )
+            {eachCategory.menuCategory}
+          </button>
+        </li>
+      )
     })
 
   const renderDishes = () => {
